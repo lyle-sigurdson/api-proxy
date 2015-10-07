@@ -14,7 +14,7 @@ router.get('/foursquare-venues', foursquareHandler);
 
 router.get(/^\/ipinfo/, ipinfoHandler);
 
-server.listen(9999, 'localhost', function () {
+server.listen(process.env.PORT, 'localhost', function () {
     console.log('Server start. Listening on ' + server.address().address + ':' +
         server.address().port
     );
