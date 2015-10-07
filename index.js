@@ -5,9 +5,12 @@ var http = require('http'),
     nodeSimpleRouter = require('node-simple-router'),
     router = nodeSimpleRouter(),
     server = http.createServer(router),
-    foursquareHandler = require('./foursquare-handler');
+    foursquareHandler = require('./foursquare-handler'),
+    ipinfoHandler = require('./ipinfo-handler');
 
 router.get('/foursquare-venues', foursquareHandler);
+
+router.get(/^\/ipinfo/, ipinfoHandler);
 
 server.listen(9999, 'localhost', function () {
     console.log('Server start. Listening on ' + server.address().address + ':' +
