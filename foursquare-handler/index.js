@@ -17,9 +17,7 @@ module.exports = function (callerReq, callerRes) {
     callerRes.setHeader('Content-Type', 'application/json');
 
     https.get(options, function (endpointRes) {
-        endpointRes.on('data', function (data) {
-            callerRes.end(data);
-        });
+        endpointRes.pipe(callerRes);
     }).on('error', function (err) {
         callerRes.end(JSON.stringify(err));
     });

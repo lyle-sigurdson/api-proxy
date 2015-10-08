@@ -11,11 +11,8 @@ module.exports = function (callerReq, callerRes) {
     };
 
     http.get(options, function (endpointRes) {
-        endpointRes.on('data', function (data) {
-            callerRes.end(data);
-        });
-    })
-    .on('error', function (err) {
+        endpointRes.pipe(callerRes);
+    }).on('error', function (err) {
         callerRes.end(JSON.stringify(err));
     });
 };
