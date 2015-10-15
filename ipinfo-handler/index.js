@@ -13,6 +13,6 @@ module.exports = function (callerReq, callerRes) {
     http.get(options, function (endpointRes) {
         endpointRes.pipe(callerRes);
     }).on('error', function (err) {
-        callerRes.end(JSON.stringify(err));
+        callerRes.end(JSON.stringify({ apiProxyError: err }));
     });
 };
