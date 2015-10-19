@@ -14,9 +14,10 @@ module.exports = function (callerReq, callerRes) {
             credentialsQuery
     };
 
-    callerRes.setHeader('Content-Type', 'application/json');
-
     https.get(options, function (endpointRes) {
+        callerRes.setHeader(
+            'content-type', endpointRes.headers['content-type']
+        );
         endpointRes.pipe(callerRes);
     }).on('error', function (err) {
         callerRes.end(JSON.stringify({ apiProxyError: err }));

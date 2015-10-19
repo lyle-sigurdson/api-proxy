@@ -11,6 +11,9 @@ module.exports = function (callerReq, callerRes) {
     };
 
     http.get(options, function (endpointRes) {
+        callerRes.setHeader(
+            'content-type', endpointRes.headers['content-type']
+        );
         endpointRes.pipe(callerRes);
     }).on('error', function (err) {
         callerRes.end(JSON.stringify({ apiProxyError: err }));
