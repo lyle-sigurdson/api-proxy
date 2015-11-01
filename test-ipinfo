@@ -1,6 +1,0 @@
-#!/bin/bash
-
-PORT=9999 node index.js &
-sleep 1
-curl 'http://localhost:9999/ipinfo/8.8.8.8'
-killall node
