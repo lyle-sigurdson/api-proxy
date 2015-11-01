@@ -7,6 +7,10 @@ var url = require('url'),
 var credentialsQuery = '&client_id=' + process.env.FS_CLIENT_ID +
     '&client_secret=' + process.env.FS_CLIENT_SECRET;
 
+if (!(process.env.FS_CLIENT_ID && process.env.FS_CLIENT_SECRET)) {
+    throw new Error('FS_CLIENT_ID and FS_CLIENT_SECRET must be set');
+}
+
 module.exports = function (callerReq, callerRes) {
     var options = {
         hostname: 'api.foursquare.com',
