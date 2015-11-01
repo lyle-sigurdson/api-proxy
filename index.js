@@ -8,6 +8,10 @@ var http = require('http'),
     foursquareHandler = require('./foursquare-handler'),
     ipinfoHandler = require('./ipinfo-handler');
 
+if (!process.env.API_PROXY_PORT) {
+    throw new Error('API_PROXY_PORT must be set');
+}
+
 router.get('/foursquare-venues', foursquareHandler);
 
 router.get(/^\/ipinfo/, ipinfoHandler);
