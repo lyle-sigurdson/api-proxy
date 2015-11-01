@@ -12,6 +12,14 @@ if (!process.env.API_PROXY_PORT) {
     throw new Error('API_PROXY_PORT must be set');
 }
 
+process.on('SIGTERM', function () {
+    process.exit(0);
+});
+
+process.on('SIGINT', function () {
+    process.exit(0);
+});
+
 router.get('/foursquare-venues', foursquareHandler);
 
 router.get(/^\/ipinfo/, ipinfoHandler);
