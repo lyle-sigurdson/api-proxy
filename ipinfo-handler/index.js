@@ -22,6 +22,9 @@ module.exports = function (callerReq, callerRes) {
         );
         endpointRes.pipe(callerRes);
     }).on('error', function (err) {
-        callerRes.end(JSON.stringify({ apiProxyError: err }));
+        callerRes.end(JSON.stringify({
+            name: 'ApiProxyError',
+            message: 'api-proxy: ipinfo-handler: ' + err.message
+        }));
     });
 };
