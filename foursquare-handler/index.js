@@ -25,8 +25,13 @@ module.exports = function (callerReq, callerRes) {
         );
         endpointRes.pipe(callerRes);
     }).on('error', function (err) {
+        callerRes.setHeader(
+            'content-type', 'application/json; charset=utf-8'
+        );
+
         callerRes.end(JSON.stringify({
-            name: 'ApiProxyError',
+            apiProxyError: true,
+            name: 'apiProxyError',
             message: 'api-proxy: foursquare-handler: ' + err.message
         }));
     });
