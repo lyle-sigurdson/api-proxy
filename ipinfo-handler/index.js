@@ -12,7 +12,9 @@ if (!ipinfoAccessToken) {
 module.exports = function (callerReq, callerRes) {
     var options = {
         hostname: 'ipinfo.io',
-        path: '/' + url.parse(callerReq.url).path.split('/')[2] +
+        path: '/' +
+              (callerReq.headers['x-forwarded-for'] || '') +
+              url.parse(callerReq.url).path.split('/')[2] +
               '?token=' + ipinfoAccessToken
     };
 
