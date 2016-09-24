@@ -1,15 +1,9 @@
 /*jshint node: true, varstmt: false */
 'use strict';
 
-var argv = require('minimist')(process.argv.slice(2)),
-    secure = !argv.insecure,
-    protocol = secure ? require ('https') : require('http'),
+var https = require ('https'),
     url = require('url'),
     ipinfoAccessToken = process.env.IPINFO_ACCESS_TOKEN;
-
-if (secure && !ipinfoAccessToken) {
-    throw new Error('IPINFO_ACCESS_TOKEN must be set');
-}
 
 module.exports = function (callerReq, callerRes) {
     var options = {
@@ -17,10 +11,10 @@ module.exports = function (callerReq, callerRes) {
         path: '/' +
               (callerReq.headers['x-forwarded-for'] || '') +
               url.parse(callerReq.url).path.split('/')[2] +
-              (secure ? '?token=' + ipinfoAccessToken : '')
+              (ipinfoAccessToken ? '?token=' + ipinfoAccessToken : '')
     };
 
-    protocol.get(options, function (endpointRes) {
+    https.get(options, function (endpointRes) {
         callerRes.setHeader(
             'content-type', endpointRes.headers['content-type']
         );
