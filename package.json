@@ -9,6 +9,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "node-simple-router": "^0.4.7"
+    "node-simple-router": "^0.10.1"
   }
 }
